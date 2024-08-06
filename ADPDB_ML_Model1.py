@@ -47,7 +47,7 @@ def descriptor(seq):
 lit.set_page_config(layout='wide')
 lit.write("""
 # Welcome to the ADPDB Sequence Prediction Tool!
-*A tool for prediction of anti-dengue property of peptides.*
+*A tool for prediction of anti-dengue peptides.*
 """)
 sequence = lit.text_input('Please enter the input sequence.')
 repeat = 0
