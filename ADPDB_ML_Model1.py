@@ -57,7 +57,7 @@ repeat = 0
 #if lit.checkbox('Do you want list of permutation of all input amino acids?'):
 #    repeat = lit.text_input('What length of peptides should be created? (Please enter integer value)')
 model = lit.radio('Choose a model:', ['RandomForestClassifier', 'ExtraTreesClassifier'])
-submit = lit.button('Submit')
+submit = lit.button('Predict')
 if submit:
     if sequence:
         if sequence.count('>') == 1:
