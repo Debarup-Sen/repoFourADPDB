@@ -49,7 +49,7 @@ lit.write("""
 # Welcome to the ADPDB Sequence Prediction Tool!
 *A tool for prediction of anti-dengue peptides.*
 """)
-sequence = lit.text_area('Please enter the input sequence. (Plain text/FASTA/multi-FASTA formats supported)')
+sequence = lit.text_area('Please enter the input sequence (Plain text/FASTA/multi-FASTA formats supported)')
 file_query = lit.file_uploader("Or, you may upload file (Plain text/FASTA/multi-FASTA formats supported)")
 if file_query:
     sequence = StringIO(file_query.getvalue().decode("utf-8")).read().upper()
@@ -59,17 +59,20 @@ repeat = 0
 model = lit.radio('Choose a model:', ['RandomForestClassifier', 'ExtraTreesClassifier'])
 submit = lit.button('Submit')
 if submit:
-    if repeat:
-        repeat = int(repeat)
-        sequence = [''.join(i) for i in product(sequence, repeat=repeat)]
-    if isinstance(sequence, str):
-        sequence = [sequence]
-    df = []
-    for i in sequence:
-        descriptors = descriptor(i)
-        out,prob = classifier(model, descriptors)
-        df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
-    df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability '])
-    df = df.sort_values(by=['Probability'], ascending=False)
-    df.reset_index(drop=True, inplace=True)
-    lit.dataframe(df)
+    if sequence:
+        if repeat:
+            repeat = int(repeat)
+            sequence = [''.join(i) for i in product(sequence, repeat=repeat)]
+        if isinstance(sequence, str):
+            sequence = [sequence]
+        df = []
+        for i in sequence:
+            descriptors = descriptor(i)
+            out,prob = classifier(model, descriptors)
+            df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
+        df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability '])
+        df = df.sort_values(by=['Probability'], ascending=False)
+        df.reset_index(drop=True, inplace=True)
+        lit.dataframe(df)
+    else:
+        lit.warning('NO input given!')
