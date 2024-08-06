@@ -75,7 +75,6 @@ if submit:
             out,prob = classifier(model, descriptors)
             df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
         df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability'])
-        lit.write(df)
         df = df.sort_values(by=['Probability'], ascending=False)
         df.reset_index(drop=True, inplace=True)
         lit.dataframe(df)
