@@ -49,10 +49,13 @@ lit.write("""
 # Welcome to the ADPDB Sequence Prediction Tool!
 *A tool for prediction of anti-dengue peptides.*
 """)
-sequence = lit.text_input('Please enter the input sequence.')
+sequence = lit.text_area('Please enter the input sequence. (Plain text/FASTA/multi-FASTA formats supported)')
+file_query = lit.file_uploader("Or, you may upload file")
+if file_query:
+    sequence = StringIO(file_query.getvalue().decode("utf-8")).read().upper()
 repeat = 0
-if lit.checkbox('Do you want list of permutation of all input amino acids?'):
-    repeat = lit.text_input('What length of peptides should be created? (Please enter integer value)')
+#if lit.checkbox('Do you want list of permutation of all input amino acids?'):
+#    repeat = lit.text_input('What length of peptides should be created? (Please enter integer value)')
 model = lit.radio('Choose a model:', ['RandomForestClassifier', 'ExtraTreesClassifier'])
 submit = lit.button('Submit')
 if submit:
@@ -66,7 +69,7 @@ if submit:
         descriptors = descriptor(i)
         out,prob = classifier(model, descriptors)
         df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
-    df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability'])
+    df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability '])
     df = df.sort_values(by=['Probability'], ascending=False)
     df.reset_index(drop=True, inplace=True)
     lit.dataframe(df)
