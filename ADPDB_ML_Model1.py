@@ -26,7 +26,6 @@ def classifier(name,inputs):
             inputs = ET_scaler.transform([inputs])
             out = ExtraTreesClassifier.predict(inputs)
             prob = ExtraTreesClassifier.predict_proba(inputs)
-    lit.write(prob)
     return out.max(),prob.max()
 
 def descriptor(seq):
@@ -65,7 +64,6 @@ if submit:
             sequence = ''.join(sequence.split('\n')[1:])
         elif sequence.count('>') > 1:
             sequence = [''.join(i.split('\n')[1:]) for i in sequence.split('>') if ' ' not in i]
-        lit.write(sequence)
         if repeat:
             repeat = int(repeat)
             sequence = [''.join(i) for i in product(sequence, repeat=repeat)]
@@ -76,7 +74,7 @@ if submit:
             descriptors = descriptor(i)
             out,prob = classifier(model, descriptors)
             df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
-        df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability '])
+        df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability'])
         lit.write(df)
         df = df.sort_values(by=['Probability'], ascending=False)
         df.reset_index(drop=True, inplace=True)
