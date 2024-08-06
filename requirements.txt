@@ -1,5 +1,4 @@
 peptides
 pandas
 biopython
-pickle
 scikit-learn
