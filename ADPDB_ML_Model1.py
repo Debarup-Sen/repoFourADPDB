@@ -64,7 +64,7 @@ if submit:
             sequence = ''.join(sequence.split('\n')[1:])
         elif sequence.count('>') > 1:
             sequence = [''.join(i.split('\n')[1:]) for i in sequence.split('>') if ' ' not in i]
-        st.write(sequence)
+        lit.write(sequence)
         if repeat:
             repeat = int(repeat)
             sequence = [''.join(i) for i in product(sequence, repeat=repeat)]
@@ -75,7 +75,7 @@ if submit:
             descriptors = descriptor(i)
             out,prob = classifier(model, descriptors)
             df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
-        st.write(df)
+        lit.write(df)
         df = pd.DataFrame(df, columns=['Sequence', 'Class', 'Probability '])
         df = df.sort_values(by=['Probability'], ascending=False)
         df.reset_index(drop=True, inplace=True)
