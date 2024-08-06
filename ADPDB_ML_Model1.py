@@ -50,7 +50,7 @@ lit.write("""
 *A tool for prediction of anti-dengue peptides.*
 """)
 sequence = lit.text_area('Please enter the input sequence. (Plain text/FASTA/multi-FASTA formats supported)')
-file_query = lit.file_uploader("Or, you may upload file")
+file_query = lit.file_uploader("Or, you may upload file (Plain text/FASTA/multi-FASTA formats supported)")
 if file_query:
     sequence = StringIO(file_query.getvalue().decode("utf-8")).read().upper()
 repeat = 0
