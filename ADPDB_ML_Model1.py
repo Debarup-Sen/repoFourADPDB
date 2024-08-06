@@ -26,6 +26,7 @@ def classifier(name,inputs):
             inputs = ET_scaler.transform([inputs])
             out = ExtraTreesClassifier.predict(inputs)
             prob = ExtraTreesClassifier.predict_proba(inputs)
+    lit.write(prob.max())
     return out.max(),prob.max()
 
 def descriptor(seq):
