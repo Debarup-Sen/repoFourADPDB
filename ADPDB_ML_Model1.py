@@ -32,20 +32,17 @@ def classifier(name,inputs):
 def descriptor(seq):
     pep = pept(seq.strip())
     proan = proana(seq.strip())
-    try:
-        _ = (
-                list(pep.frequencies().values()) + 
-                [pep.aliphatic_index()] + 
-                [pep.instability_index()] + 
-                [pep.hydrophobicity()] + 
-                [pep.hydrophobic_moment()] + 
-                [pep.isoelectric_point()] + 
-                [pep.molecular_weight()] + 
-                [pep.charge()] +
-                [proan.aromaticity()]
-            )
-    except ZeroDivisionError:
-        _ = "Error: Your file has no data
+    _ = (
+            list(pep.frequencies().values()) + 
+            [pep.aliphatic_index()] + 
+            [pep.instability_index()] + 
+            [pep.hydrophobicity()] + 
+            [pep.hydrophobic_moment()] + 
+            [pep.isoelectric_point()] + 
+            [pep.molecular_weight()] + 
+            [pep.charge()] +
+            [proan.aromaticity()]
+        )
     return _
 ## UI
 lit.set_page_config(layout='wide')
