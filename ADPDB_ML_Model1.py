@@ -8,6 +8,7 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis as proana
 import streamlit as lit
 from itertools import product
 import pandas as pd
+from io import StringIO
 ## Models
 RandomForestClassifier = pickle.load(open('RandomForestClassifier.pkl', 'rb'))
 RF_scaler = pickle.load(open('RandomForestClassifier_scaler.pkl', 'rb'))
