@@ -60,7 +60,7 @@ repeat = 0
 model = lit.radio('Choose a model:', ['RandomForestClassifier', 'ExtraTreesClassifier'])
 submit = lit.button('Predict')
 if submit:
-    with st.spinner('Wait for it...'):
+    with lit.spinner('Wait for it...'):
         if sequence:
             if sequence.count('>') == 1:
                 sequence = ''.join(sequence.split('\n')[1:])
