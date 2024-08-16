@@ -65,7 +65,7 @@ if submit:
             sequence = ''.join(sequence.split('\n')[1:])
         elif sequence.count('>') > 1:
             sequence = [''.join(i.split('\n')[1:]) for i in sequence.split('>') if ' ' not in i]
-            f'1 {sequence}'
+            lit.write(f'1 {sequence}')
         if repeat:
             repeat = int(repeat)
             sequence = [''.join(i) for i in product(sequence, repeat=repeat)]
