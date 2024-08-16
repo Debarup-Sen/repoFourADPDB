@@ -62,9 +62,14 @@ submit = lit.button('Predict')
 if submit:
     with lit.spinner('Wait for it...'):
         if sequence:
+            if sequence.count('>') == 0:
+                lit.info('Plain text format detected (please re-check input if incorrect)')
+                sequence = sequence.strip().split('\n')
             if sequence.count('>') == 1:
+                lit.info('FASTA format detected (please re-check input if incorrect)')
                 sequence = ''.join(sequence.split('\n')[1:])
             elif sequence.count('>') > 1:
+                lit.info('Multi-FASTA format detected (please re-check input if incorrect)')
                 sequence = [''.join(i.split('\n')[1:]) for i in sequence.split('>') if '' != i]
             if repeat:
                 repeat = int(repeat)
@@ -73,7 +78,6 @@ if submit:
                 sequence = [sequence]
             df = []
             for i in sequence:
-                lit.write(sequence.index(i))
                 descriptors = descriptor(i)
                 out,prob = classifier(model, descriptors)
                 df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
