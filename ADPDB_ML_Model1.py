@@ -73,6 +73,7 @@ if submit:
                 sequence = [sequence]
             df = []
             for i in sequence:
+                lit.write(sequence.index(i))
                 descriptors = descriptor(i)
                 out,prob = classifier(model, descriptors)
                 df.append([i, ('Anti-Dengue' if out==1 else'Non Anti-Dengue'), prob])
