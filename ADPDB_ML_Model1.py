@@ -32,17 +32,20 @@ def classifier(name,inputs):
 def descriptor(seq):
     pep = pept(seq.strip())
     proan = proana(seq.strip())
-    _ = (
-            list(pep.frequencies().values()) + 
-            [pep.aliphatic_index()] + 
-            [pep.instability_index()] + 
-            [pep.hydrophobicity()] + 
-            [pep.hydrophobic_moment()] + 
-            [pep.isoelectric_point()] + 
-            [pep.molecular_weight()] + 
-            [pep.charge()] +
-            [proan.aromaticity()]
-        )
+    try:
+        _ = (
+                list(pep.frequencies().values()) + 
+                [pep.aliphatic_index()] + 
+                [pep.instability_index()] + 
+                [pep.hydrophobicity()] + 
+                [pep.hydrophobic_moment()] + 
+                [pep.isoelectric_point()] + 
+                [pep.molecular_weight()] + 
+                [pep.charge()] +
+                [proan.aromaticity()]
+            )
+    except ZeroDivisionError:
+        _ = "Error: Your file has no data
     return _
 ## UI
 lit.set_page_config(layout='wide')
@@ -65,6 +68,7 @@ if submit:
             sequence = ''.join(sequence.split('\n')[1:])
         elif sequence.count('>') > 1:
             sequence = [''.join(i.split('\n')[1:]) for i in sequence.split('>') if ' ' not in i]
+            f'1 {sequence}'
         if repeat:
             repeat = int(repeat)
             sequence = [''.join(i) for i in product(sequence, repeat=repeat)]
