@@ -54,7 +54,7 @@ sequence = lit.text_area('Please enter the input sequence (Plain text/FASTA/mult
 file_query = lit.file_uploader("Or, you may upload file (Plain text/FASTA/multi-FASTA formats supported)")
 if file_query:
     sequence = StringIO(file_query.getvalue().decode("utf-8")).read().upper()
-    lit.write(f'1 {sequence}')
+    lit.write(f'1 {sequence[:50]}')
 repeat = 0
 #if lit.checkbox('Do you want list of permutation of all input amino acids?'):
 #    repeat = lit.text_input('What length of peptides should be created? (Please enter integer value)')
